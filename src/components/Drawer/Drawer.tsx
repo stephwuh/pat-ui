@@ -10,7 +10,6 @@ interface IDrawerProps {
     anchor?: Anchor;
     className?: string;
     variant?: Variant;
-    onClose?: (e?: React.MouseEvent) => void;
     toggleDrawer?: (event: React.MouseEvent) => void;
 }
 
@@ -18,7 +17,6 @@ const Drawer: FC<IDrawerProps> = ({
     open,
     anchor,
     variant,
-    onClose,
     children,
     className,
 }) => {
@@ -70,6 +68,7 @@ const Drawer: FC<IDrawerProps> = ({
 }
 
 export default Drawer;
+
 
 
 
