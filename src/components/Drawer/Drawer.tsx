@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
-import { classNames } from '../../Utils/classNames';
+import { classNames } from '../../utils/classNames';
 
 type Variant = 'permanent' | 'persistent' | 'temporary';
 
