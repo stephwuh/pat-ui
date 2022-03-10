@@ -68,33 +68,3 @@ const Drawer: FC<IDrawerProps> = ({
 }
 
 export default Drawer;
-
-
-
-
-
-const CustomDrawer: FC = (): JSX.Element =>{
-
-
-
-  return(
-    <div>
-      <button>Drawer Btn</button>
-      
-      <Drawer anchor='left' open={false}>
-        <h1>email</h1>
-        <h1>contacts</h1>
-        <h1>drafts</h1>
-        <h1>email</h1>
-        <h1>contacts</h1>
-        <h1>drafts</h1>
-        <h1>email</h1>
-        <h1>contacts</h1>
-        <h1>drafts</h1>
-        </Drawer>
-    </div>
-    
-  )
-}
-
-export {CustomDrawer};
