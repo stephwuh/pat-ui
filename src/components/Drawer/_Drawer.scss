@@ -54,11 +54,6 @@
 
 .drawer-dimBackground{ 
     position: fixed;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
     inset: 0px;
     background-color: rgba(0, 0, 0, 0.5);
     -webkit-tap-highlight-color: transparent;
@@ -100,18 +95,32 @@
 // <----- Side out class styles ----->
 
 .drawer-close-left{
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: max-content;
   animation: slideOutLeft 1s forwards;
 }
 
 .drawer-close-right{
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: max-content;
   animation: slideOutRight 1s forwards;
 }
 
 .drawer-close-top{
+  top:0;
+  width: 100%;
+  height: max-content;
   animation: slideOutRight 1s forwards;
 }
 
 .drawer-close-bottom{
+  bottom:0;
+  width: 100%;
+  height: max-content;
   animation: slideOutBottom 1s forwards;
 }
 
