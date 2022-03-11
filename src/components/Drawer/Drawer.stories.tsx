@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Drawer from './Drawer';
 
 export default {
@@ -58,7 +58,7 @@ export const temporaryDrawer = () => {
     }
 
     return (
-        <div style={{ display: 'flex', columnGap: '50px' }}>
+        <div style={{ display: 'inline-block' }}>
             <Drawer
                 open={isOpen}
                 variant={'temporary'}
@@ -71,7 +71,7 @@ export const temporaryDrawer = () => {
                 <h2>Spam</h2>
                 <h2>Trash</h2>
             </Drawer>
-            <button style={{ height: '50px', alignSelf: 'center', padding: '0 10px' }} onClick={handleToggle}> Open </button>
+            <button style={{ height: '40px', alignSelf: 'center', margin: '0 50px' }} onClick={handleToggle}> Open </button>
             <i> Click dimmed background to close </i>
         </div>
     )
