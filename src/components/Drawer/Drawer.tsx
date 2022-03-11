@@ -1,38 +1,39 @@
-import React, { FC, useState, useEffect} from 'react';
+import React, { FC, useState } from 'react';
 import { classNames } from '../../utils/classNames';
-import './_Drawer.scss';
 
 type Variant = 'permanent' | 'persistent' | 'temporary';
 
 type Anchor = 'top' | 'bottom' | 'left' | 'right';
 
-
-
-interface IDrawerProps {
+export interface IDrawerProps {
     open?: boolean;
     anchor?: Anchor;
     className?: string;
     variant?: Variant;
-    onCloseCallback?: () => void;
+    onToggleCallback?: () => void;
 }
 
-export const Drawer: FC<IDrawerProps> = ({
+/**
+ * A drawer allows user to hide or show a sidebar with annimations.
+ *
+ * ```js
+ * import { Drawer } from 'pat-ui'
+ * ```
+ */
+
+const Drawer: FC<IDrawerProps> = ({
     open = false,
     anchor = 'left',
     variant = 'temporary',
     children,
     className,
-    onCloseCallback
+    onToggleCallback
 }) => {
 
-   
-
-
-    const handlerClose = (event: React.MouseEvent) => {
-        if (onCloseCallback) {
-            onCloseCallback();
+    const handleToggleDrawer = (event: React.MouseEvent) => {
+        if (onToggleCallback) {
+            onToggleCallback();
         }
-        
     };
 
     let styleClasses = classNames('drawer', {
@@ -59,13 +60,9 @@ export const Drawer: FC<IDrawerProps> = ({
         setCloseDrawerStyle(closeDrawer);
     }, 300)
 
-    //onclose function
-
-
-     
     return (
         <section className={closeDrawerStyle}>
-            <div className={dimBackgroundStyle} onClick={handlerClose} data-testid='dimmed-background'></div>
+            <div className={dimBackgroundStyle} onClick={handleToggleDrawer} data-testid='dimmed-background'></div>
             <aside className={styleClasses} data-testid="drawer">
                 {children}
             </aside>
@@ -73,38 +70,4 @@ export const Drawer: FC<IDrawerProps> = ({
     )
 }
 
-// export default Drawer;
-
-
-
-export function CustomDrawer() {
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const toggleDrawer = () => {
-
-    setIsOpen(!isOpen);
-};
-
-  return (
-    <div className="App" style={{display: 'flex', flexDirection: 'row'}}>
-      <Drawer
-      anchor='left'
-      open={isOpen}
-      variant='temporary'
-      onCloseCallback={toggleDrawer}
-      >
-          <h1>email</h1>
-          <h1>email</h1>
-          <h1>email</h1>
-          <h1>email</h1>
-          <h1>email</h1>
-          <h1>email</h1>
-          <h1>email</h1>
-
-      </Drawer>
-      <h1>Hello World!</h1>
-      <button onClick={toggleDrawer}>Open / Close </button>
-    </div>
-  );
-}
+export default Drawer;

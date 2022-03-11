@@ -12,3 +12,4 @@ export { default as Message } from './components/Message';
 export { default as Card } from './components/Card';
 export { default as Dropdown } from './components/Dropdown';
 export { default as Progress } from './components/Progress';
+export { default as Drawer } from './components/Drawer';
