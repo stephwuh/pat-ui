@@ -16,10 +16,10 @@ interface IDrawerProps {
     onCloseCallback?: () => void;
 }
 
-const Drawer: FC<IDrawerProps> = ({
-    open,
-    anchor,
-    variant,
+export const Drawer: FC<IDrawerProps> = ({
+    open = false,
+    anchor = 'left',
+    variant = 'temporary',
     children,
     className,
     onCloseCallback
@@ -37,7 +37,7 @@ const Drawer: FC<IDrawerProps> = ({
 
     let styleClasses = classNames('drawer', {
         [`${variant === 'permanent' ? `drawer-${anchor}` : ''}`]: true,
-        [`${variant !== 'permanent' ? `drawer-open-${anchor}` : ''}`]: true,
+        [`${variant !== 'permanent' && open ? `drawer-open-${anchor}` : ''}`]: true,
         [`${open ? '' : `drawer-close-${anchor}`}`]: true,
         [`${variant === 'permanent' ? `drawer-permanent` : ''}`]: true,
         [`${variant === 'persistent' ? `drawer-persistent` : ''}`]: true,
@@ -65,8 +65,8 @@ const Drawer: FC<IDrawerProps> = ({
      
     return (
         <section className={closeDrawerStyle}>
-            <div className={dimBackgroundStyle} onClick={handlerClose}></div>
-            <aside className={styleClasses}>
+            <div className={dimBackgroundStyle} onClick={handlerClose} data-testid='dimmed-background'></div>
+            <aside className={styleClasses} data-testid="drawer">
                 {children}
             </aside>
         </section>
@@ -89,7 +89,7 @@ export function CustomDrawer() {
   return (
     <div className="App" style={{display: 'flex', flexDirection: 'row'}}>
       <Drawer
-      anchor={'left'}
+      anchor='left'
       open={isOpen}
       variant='temporary'
       onCloseCallback={toggleDrawer}
