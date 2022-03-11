@@ -1,10 +1,14 @@
 import React from 'react';
 
-import { Drawer } from './Drawer';
+import Drawer from './Drawer';
 
 import { render, screen } from '@testing-library/react';
 
 describe('Drawer', () => {
+  it('should match snapshot', () => {
+    const { asFragment } = render(<Drawer />);
+    expect(asFragment()).toMatchSnapshot();
+  });
   it('Developers can choose the style of the temporary Drawer using props', () => {
     render(<Drawer variant="temporary" />);
     const drawerElement = screen.getByTestId('drawer');
@@ -95,7 +99,7 @@ describe('Drawer', () => {
     render(
       <div>
         <button onClick={handleClick()}>Close</button>
-        <Drawer open={openState} onCloseCallback={handleClick} />
+        <Drawer open={openState} onToggleCallback={handleClick} />
       </div>
     );
     const drawerElement = screen.getByTestId('drawer');
