@@ -1,66 +1,73 @@
-import React, { FC } from 'react';
-import './_Drawer.scss';
+import React, { FC, useState } from 'react';
+import { classNames } from '../../utils/classNames';
 
-// additional features to work on
-// 1. miniVariantDrawer?: boolean;
+type Variant = 'permanent' | 'persistent' | 'temporary';
 
+type Anchor = 'top' | 'bottom' | 'left' | 'right';
 
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
-
-interface DrawerProps {
-  anchor?: Anchor;
-  variant?: boolean;
-  open?: boolean;
-  onClose?: (e?: React.MouseEvent) => void;
+export interface IDrawerProps {
+    open?: boolean;
+    anchor?: Anchor;
+    className?: string;
+    variant?: Variant;
+    onToggleCallback?: () => void;
 }
 
-const Drawer: FC<DrawerProps> = ({
-  anchor = 'left',
-  open= false,
-  onClose,
-  children
-}): JSX.Element => {
+/**
+ * A drawer allows user to hide or show a sidebar with annimations.
+ *
+ * ```js
+ * import { Drawer } from 'pat-ui'
+ * ```
+ */
 
+const Drawer: FC<IDrawerProps> = ({
+    open = false,
+    anchor = 'left',
+    variant = 'temporary',
+    children,
+    className,
+    onToggleCallback
+}) => {
 
-  
+    const handleToggleDrawer = (event: React.MouseEvent) => {
+        if (onToggleCallback) {
+            onToggleCallback();
+        }
+    };
 
-  return (
-    
-    
-  <aside className={`drawer ${anchor} ${open? "": "openStateFalse"}`}>
-      {children}
-  </aside>
-  
-  )
-};
+    let styleClasses = classNames('drawer', {
+        [`${variant === 'permanent' ? `drawer-${anchor}` : ''}`]: true,
+        [`${variant !== 'permanent' && open ? `drawer-open-${anchor}` : ''}`]: true,
+        [`${open ? '' : `drawer-close-${anchor}`}`]: true,
+        [`${variant === 'permanent' ? `drawer-permanent` : ''}`]: true,
+        [`${variant === 'persistent' ? `drawer-persistent` : ''}`]: true,
+        [`${variant === 'temporary' ? `drawer-temporary` : ''}`]: true,
+    })
+    if (className) {
+        styleClasses += ' ' + className;
+    }
 
-export {Drawer};
+    let dimBackgroundStyle = '';
+    if (variant === 'temporary' && open === true) {
+        dimBackgroundStyle = 'drawer-dimBackground';
+    }
 
+    const [closeDrawerStyle, setCloseDrawerStyle] = useState<string>('');
 
+    setTimeout(() => {
+        let closeDrawer = `${open ? 'drawer-open' : 'drawer-close'}`;
+        setCloseDrawerStyle(closeDrawer);
+    }, 300)
 
-
-const CustomDrawer: FC = (): JSX.Element =>{
-
-
-
-  return(
-    <div>
-      <button>Drawer Btn</button>
-      
-      <Drawer anchor='left' open={false}>
-        <h1>email</h1>
-        <h1>contacts</h1>
-        <h1>drafts</h1>
-        <h1>email</h1>
-        <h1>contacts</h1>
-        <h1>drafts</h1>
-        <h1>email</h1>
-        <h1>contacts</h1>
-        <h1>drafts</h1>
-        </Drawer>
-    </div>
-    
-  )
+    return (
+        <section className={closeDrawerStyle}>
+            <div className={dimBackgroundStyle} onClick={handleToggleDrawer} data-testid='dimmed-background'></div>
+            <aside className={styleClasses} data-testid="drawer">
+                {children}
+            </aside>
+        </section>
+    )
 }
 
-export {CustomDrawer};
+export default Drawer;
