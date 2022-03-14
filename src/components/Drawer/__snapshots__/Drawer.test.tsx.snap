@@ -2,15 +2,13 @@
 
 exports[`Drawer should match snapshot 1`] = `
 <DocumentFragment>
-  <section
-    class=""
-  >
+  <section>
     <div
       class=""
       data-testid="dimmed-background"
     />
     <aside
-      class="drawer  drawer-close-left drawer-temporary"
+      class="drawer drawer-openStateFalse"
       data-testid="drawer"
     />
   </section>
